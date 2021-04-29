@@ -1,0 +1,49 @@
+<% if flash[:notice] %>
+    <div class="flash">
+         <%= flash[:notice] %>
+    </div>
+<% end %>
+
+
+<div class="container px-5 px-sm-0">
+  
+  
+      <div id="error_exlanation">
+        <% if @book.errors.any? %>
+        <h3><%=@book.errors.count %> error prohibited this obj from being saved:</h3>
+        <ul>
+        <% @book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          
+        </ul>
+        <% end %>
+      <% end %>
+      </div>
+
+     <%= render 'users/list',user: @user %>
+
+     <div class ="col-md-8 offset-md-1">
+      <h2>Books</h2>
+     <table class = "table talbe-hover table-inverse">
+      <thead>
+       <tr>
+        <th colspan="1"></th>
+        <th>Title</th>
+        <th>Opinion</th>
+       </tr>
+      </thead>
+      <% @books.each do |book| %>
+      <tbody>
+       <td>
+        <%= link_to user_path(book.user) do %>
+        <%= attachment_image_tag book.user, :profile_image, format: 'jpeg', fallback: "no_image.jpg", size: "40x40" %>
+        <% end %> 
+       </td>
+       <td><%= link_to book.title, book_path(book.id) %></td>
+       <td><%= book.body %></td>
+      </tbody>
+      <% end %>
+      </table>
+     </div>
+  </div>
+</div>
